@@ -2,7 +2,7 @@ class MinStack {
 public:
     stack<int>st;
     MinStack(){
-        //chutiya
+       
     }
     
     void push(int val) {
