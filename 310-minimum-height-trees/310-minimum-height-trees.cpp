@@ -15,11 +15,11 @@ public:
             return {0,1};
         }
         memset(degree,0,sizeof(degree));
-        for(auto u : edges){
-            adj[u[0]].push_back(u[1]);
-            adj[u[1]].push_back(u[0]);
-            degree[u[0]]++;
-            degree[u[1]]++;
+        for(int i=0;i<edges.size();i++){
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
+            degree[edges[i][0]]++;
+            degree[edges[i][1]]++;
         }
         queue<int> q;
         for(int i=0;i<n;i++) if(adj[i].size()==1){ 
