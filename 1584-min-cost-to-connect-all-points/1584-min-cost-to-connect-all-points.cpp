@@ -1,28 +1,33 @@
 class Solution {
 public:
-	int minCostConnectPoints(vector<vector<int>>& points) {
-		ios_base::sync_with_stdio(false);
-		cin.tie(NULL);
+    int minCostConnectPoints(vector<vector<int>>& points) {
+	int n = points.size();
+	vector<vector<int>> graph(n, vector<int>(n, 0));
+	for(int i=0; i<n; i++)
+		for(int j=0; j<n; j++)
+			graph[i][j] = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]);
 
-		int n = points.size();
-		priority_queue<vector<int>> q;
-		unordered_set<int> vis;
-		int ans = 0;
-		q.push({0,0,0});
-		vector<int> cur;
-		while(!q.empty() && vis.size()<n){
-			cur = q.top(); q.pop();
-			if(vis.count(cur[2]))continue;
-			ans += -cur[0];
-			vis.insert(cur[2]);
-			for(int i=0;i<n;i++){
-				if(!vis.count(i)){
-					int d = abs(points[cur[2]][0] - points[i][0]) + 
-						abs(points[cur[2]][1] - points[i][1]);
-					q.push({-d,cur[2],i});
-				}
+	vector<int> key(n, INT_MAX);
+	vector<bool> mst(n, false);
+	priority_queue< pair<int,int>, vector<pair<int,int>>, greater<pair<int, int>>> pq;
+	key[0] = 0;
+	pq.push({0, 0});                //{value, key index}
+	while(!pq.empty()){
+		int u = pq.top().second;
+		pq.pop();
+		mst[u] = true;
+
+		for(int j=0; j<n; j++){
+			if(mst[j] == false && graph[u][j] < key[j]){
+				key[j] = graph[u][j];
+				pq.push({key[j], j});
 			}
 		}
-		return ans;
 	}
+	int cost = 0;
+	for(int i=1; i<n; i++){
+		cost += key[i];
+	}
+	return cost;
+}
 };
