@@ -1,33 +1,73 @@
+struct weight{
+    long long int w,u,v;
+};
 class Solution {
-public:
+public:    
+long long int parent[100000];
+    long long int rank[100000];
+
+    
     int minCostConnectPoints(vector<vector<int>>& points) {
-	int n = points.size();
-	vector<vector<int>> graph(n, vector<int>(n, 0));
-	for(int i=0; i<n; i++)
-		for(int j=0; j<n; j++)
-			graph[i][j] = abs(points[i][0] - points[j][0]) + abs(points[i][1] - points[j][1]);
+       
+        
+        
+        vector<weight> connect;
+        int n=points.size();
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+            rank[i]=0;
+        }
+        for(int i=0;i<n;i++){
+            for(int j=i+1;j<n;j++){
+                long long int val=abs(points[i][0]-points[j][0])+abs(points[i][1]-points[j][1]);
+            connect.push_back({val,i,j});
+            }
+        }
+     sort(connect.begin(),connect.end(),[&](const weight &a ,const weight &b){
+         return a.w<b.w;
+     });
+                // for(auto x : connect)cout<<x.w<<" "<<x.u<<" "<<x.v<<endl;
 
-	vector<int> key(n, INT_MAX);
-	vector<bool> mst(n, false);
-	priority_queue< pair<int,int>, vector<pair<int,int>>, greater<pair<int, int>>> pq;
-	key[0] = 0;
-	pq.push({0, 0});                //{value, key index}
-	while(!pq.empty()){
-		int u = pq.top().second;
-		pq.pop();
-		mst[u] = true;
+        long long int ans=0;
+        for(auto x : connect)
+        {
+            long long int cost=x.w;
+             int src=x.u;
+             int  des=x.v;
+            int ck,ck1;
+            ck=find(src);
+            ck1=find(des);
+            if(ck!=ck1){
+                union_(src,des);
+                ans+=cost; 
+            }
+            
+        }
+         return ans;
+        
+    }
+    
+    
 
-		for(int j=0; j<n; j++){
-			if(mst[j] == false && graph[u][j] < key[j]){
-				key[j] = graph[u][j];
-				pq.push({key[j], j});
-			}
-		}
-	}
-	int cost = 0;
-	for(int i=1; i<n; i++){
-		cost += key[i];
-	}
-	return cost;
+
+long long int  find(long long int  u)
+{
+    if (parent[u] == u)
+        return u;
+    return parent[u] = find(parent[u]);
+}
+
+void union_(long long int  u, long long int v)
+{
+    long long int a, b;
+    a = find(u);
+    b = find(v);
+   if(rank[a]>rank[b]) parent[b]=a;
+    else if(rank[b]>rank[a])parent[b]=a;
+    else {
+        parent[b]=a;
+        rank[a]++;
+    }
+     
 }
 };
