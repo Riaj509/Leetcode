@@ -1,49 +1,47 @@
 class Solution {
 public:
+    class Trie{
+      public:
+        Trie *child[26];
+        bool isEnd = false;
+    };
     
-    unordered_map<string, bool> memo;
-    
-    bool wordBreakHelp(string word, unordered_map<string, bool>& dict)
-    {
-        //if present in dict
-        if(dict.find(word) != dict.end())
-            return true;
-        
-        //if present in memo, no need to call 
-        if(memo.find(word) != memo.end())
-            return memo[word];
-        
-        
-        for(int i=0; i<word.length(); i++)
-        {
-            string left = word.substr(0, i+1); //always starts from beginning
-            string right = word.substr(i+1); //remaining string till the last letter;
-            
-            if(dict.find(left) != dict.end())
-            {
-                bool ros = wordBreakHelp(right, dict); //rest of the string is recursed
-                
-                if(ros == true)
-                {
-                    memo[word] = true; //entire word exists
-                    return true;
-                }
-            }
+    void insert(string &word, Trie* root){
+        Trie *cur = root;
+        for(auto &ch : word){
+            if(!cur->child[ch-'a']) cur->child[ch-'a'] = new Trie();
+            cur=cur->child[ch-'a'];
         }
-        
-        //if no prefix is found to be matching, word does not exist
-        memo[word] = false;
-        return false;
-          
+        cur->isEnd = true;
     }
     
-    bool wordBreak(string s, vector<string>& wordDict) 
-    {
-        unordered_map<string, bool> dict;
-        
-        for(string s : wordDict)
-            dict[s] = true;
-        
-        return wordBreakHelp(s, dict);
+    bool search(string &word, Trie* root){
+        Trie *cur = root;
+        for(auto &ch : word){
+            if(!cur->child[ch-'a']) return false;
+            cur=cur->child[ch-'a'];
+        }
+        return cur->isEnd;
+    }
+    
+    int dp[305][305];
+    bool solve(string &s, Trie *root, int n, int start){
+        if(start==n) return true;
+        if(dp[start][n]!=-1) return dp[start][n];
+        for(int i=start; i<n; ++i){
+            string str = s.substr(start,i-start+1);
+            if(search(str,root)){
+                if(solve(s,root,n,i+1)) return dp[start][n] = true;
+            }
+        }
+        return dp[start][n] = false;
+    }
+    
+    bool wordBreak(string &s, vector<string>& wordDict) {
+        Trie *root = new Trie();
+        for(auto &word : wordDict) insert(word,root);
+        int n=s.size();
+        memset(dp,-1,sizeof(dp));
+        return solve(s,root,n,0);
     }
 };
