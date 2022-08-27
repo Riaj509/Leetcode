@@ -13,7 +13,7 @@ public:
                 else {
                     if( matrix[i][j]==1)dp[i][j]+=1+min(dp[i-1][j],min(dp[i-1][j-1],dp[i][j-1]));
                 }
-                cout<<dp[i][j]<<" ";
+                // cout<<dp[i][j]<<" ";
                 ans+=dp[i][j];
             }
             cout<<"\n";
