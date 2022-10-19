@@ -2,7 +2,9 @@ class Solution {
 public:
     vector<string> findRestaurant(vector<string>& list1, vector<string>& list2) {
         map<string,int>f;
-        for(int i=0;i<list1.size();i++)f[list1[i]]=i+1;
+        for(int i=0;i<list1.size();i++){
+            if(f[list1[i]]==0) f[list1[i]]=i+1;
+        }
         int mn=2000; 
         for(int i=0;i<list2.size();i++){
             if(f[list2[i]]) mn=min(mn,f[list2[i]]+i+1);
