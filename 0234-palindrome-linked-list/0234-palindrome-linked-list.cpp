@@ -11,20 +11,35 @@
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
-        ListNode* copy;
-        bool res=true;
-        copy=head;
-        vector<long long int> ans;
-        while(copy){
-            ans.push_back(copy->val);
-            copy=copy->next;
+          ListNode *prev = NULL;
+    ListNode *fast = head, *slow = head;
+    while (fast != NULL && fast->next != NULL) {
+        fast = fast->next->next;
+        ListNode *prev2 = slow->next;
+        slow->next = prev;
+        prev = slow;
+        slow = prev2;
+    }
+    if (fast != NULL) { // if it is odd, 
+        slow = slow->next;
+    }
+
+    while (slow != NULL && prev != NULL) {
+        if (prev->val != slow->val) {
+            return false;
         }
-        for(int i=0;i<ans.size()/2;i++){
-            if(ans[i]!=ans[ans.size()-i-1]) return false;
-        }
-        return true;
+        slow = slow->next;
+        prev = prev->next;
+    }
+
+    if (slow != NULL || prev != NULL) {
+        return false;
+    }
+
+    return true;
+
+}
         
         
        
-    }
 };
