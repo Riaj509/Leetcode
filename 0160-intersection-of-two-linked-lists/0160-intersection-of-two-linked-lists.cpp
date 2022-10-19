@@ -14,14 +14,31 @@ public:
             
         
         ListNode *fs=headA,*sn=headB;
-        map<ListNode*,int>f;
-        while(fs){
-            f[fs]++;
+        int n=0,m=0;
+        while(fs) {
+            n++;
             fs=fs->next;
-        }
-         while(sn){
-            if(f[sn]>0) return sn;
+        } 
+         while(sn) {
+            m++;
             sn=sn->next;
+        }
+        int t= abs(n-m);
+        if(n>m){
+            while(t--) {
+            headA=headA->next;
+            }
+        }
+        else {
+             while(t--) {
+                headB=headB->next;
+            }
+        }
+        
+        while(headA && headB){
+            if(headA==headB) return headA;
+            headA=headA->next;
+            headB=headB->next;
         }
         return NULL;
     }
