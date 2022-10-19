@@ -1,19 +1,25 @@
 class Solution {
 public:
-    bool isHappy(int n) {
-    map<long long int,bool>f;
-        long long sm=n,ans=0;
-        while(true){
-            while(sm>0){
-                ans+=(sm%10)*(sm%10);
-                sm/=10;
-            }
-            if(ans==1) return true;
-            if(f[ans]) return false;
-            f[ans]=true;
-            sm=ans;
-            ans=0;
+    // Detect Cycle using  Floyd Cycle detection Algorithm(it is using 2 pointers(slow & fast pointer))
+    // if we detect cycle then it is not a happy number otherwise yes
+    // it can also solved by using HashMap or Set
+    int solve(int n) {
+        int sum = 0;
+        while(n > 0) {
+			int r = n%10;
+            sum += r*r;
+            n /= 10;
         }
-        
+        return sum;
+    }
+    
+    bool isHappy(int n) {
+        int slow = n, fast = n;
+        do {
+            slow = solve(slow);
+            fast = solve(solve(fast));
+            if(fast == 1) return 1;
+        } while(slow != fast);
+        return 0;
     }
 };
