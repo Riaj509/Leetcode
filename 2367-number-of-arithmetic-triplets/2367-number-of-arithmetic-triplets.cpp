@@ -1,27 +1,23 @@
 class Solution {
 public:
-    int arithmeticTriplets(vector<int>& nums, int diff) {
-       
-        int count = 0;
-        
-        for(int i = 0 ; i<nums.size()-2 ; i++)
-        {
-           int j = i+1 ;
-            while(j<nums.size()-1 && nums[j]-nums[i] < diff)
-                j++;           
-            
-            if( j== nums.size()-1 || nums[j]-nums[i] != diff)
-                continue;
-            
-            int k = j+1;
-            
-            while(k<nums.size() && nums[k]-nums[j] < diff)
-                k++;
-            
-            if(k < nums.size() && nums[k] - nums[j] == diff)
+    int solve(int diff, vector<int>& arr) {
+    int start=0, end=0;
+    int count=0;
+    while(start<=end && end<arr.size()){
+        if(arr[end]-arr[start]==2*diff){
+            if(binary_search(&arr[start], &arr[end], arr[start]+diff)){
                 count++;
+            }
+            start++;
+        }else if(arr[end]-arr[start]<2*diff){
+            end++;
+        }else{
+            start++;
         }
-        
-        return count;
+    }
+    return count;
+}
+    int arithmeticTriplets(vector<int>& nums, int diff) {
+        return solve(diff, nums);
     }
 };
