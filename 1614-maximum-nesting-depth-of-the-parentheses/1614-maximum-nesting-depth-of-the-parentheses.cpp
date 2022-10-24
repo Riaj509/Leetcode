@@ -6,15 +6,11 @@ public:
        for(int i=0;i<s.size();++i){
            if(s[i]=='(') {
                st++;
-               cur_mx=max(cur_mx,st);
            }
            else if(s[i]==')'){
                st--;
-               if(st==0) {
-                   mx=max(mx,cur_mx);
-                   cur_mx=0;
-               }
            }
+           mx=max(mx,st);
            
        } 
         return mx;
