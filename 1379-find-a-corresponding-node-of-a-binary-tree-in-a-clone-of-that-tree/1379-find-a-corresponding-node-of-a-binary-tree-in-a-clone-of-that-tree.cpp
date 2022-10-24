@@ -13,7 +13,7 @@ public:
     TreeNode* getTargetCopy(TreeNode* original, TreeNode* cloned, TreeNode* target) {
         TreeNode *or1=original,*co=cloned;
         
-        TreeNode *ans=new TreeNode();
+        TreeNode *ans=NULL;
         
         check(or1,co,target,ans);
         
