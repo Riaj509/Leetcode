@@ -14,7 +14,7 @@ public:
     
     
     void check(string &main,int pos,string bld,map<char,string>&f,vector<string>&ans){
-        if(pos>=main.size()){
+        if(pos==main.size()){
             ans.push_back(bld);
             return;
         }
