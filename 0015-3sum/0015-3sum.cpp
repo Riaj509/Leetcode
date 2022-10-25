@@ -4,6 +4,9 @@ public:
         sort(nums.begin(),nums.end());
         vector<vector<int>>ans;
         for(int i=0;i<nums.size();++i){
+            
+            if(nums[i]>0) break;
+            if(i>0 && nums[i-1]==nums[i])continue;
             int res=-nums[i];
             
             int l=i+1,r=nums.size()-1;
@@ -18,9 +21,6 @@ public:
                 else if(sm>res)r--;
                 else l++;
             }
-            
-            while(i+1<nums.size() && nums[i+1]==nums[i]) i++;
-            
         }
         
         return ans;
