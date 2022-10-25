@@ -4,6 +4,8 @@ public:
         sort(nums.begin(),nums.end());
         vector<vector<int>>ans;
         for(int i=0;i<nums.size();++i){
+            
+            if(nums[i]>0) break;
             int res=-nums[i];
             
             int l=i+1,r=nums.size()-1;
