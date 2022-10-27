@@ -29,6 +29,7 @@ public:
                 solve(i+1,end,a,b,tr-a[i]);
                 b.pop_back();
             }
+            else break;
             
         }
     }
