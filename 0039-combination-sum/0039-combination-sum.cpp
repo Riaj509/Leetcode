@@ -13,11 +13,12 @@ public:
         
     }
     
-    void solve(int str,int end,vector<int>a,vector<int>b,int tr){
+    void solve(int str,int end,vector<int>&a,vector<int>&b,int tr){
         if(tr==0){
             ans.push_back(b);
             return;
         }
+        
         
         for(int i=str;i<=end;++i){
             
