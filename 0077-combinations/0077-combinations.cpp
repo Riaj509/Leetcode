@@ -10,7 +10,7 @@ public:
         return ans;
     }
     
-    void check(int str,int end,int k,vector<vector<int>>&ans,vector<int>tmp){
+    void check(int str,int end,int k,vector<vector<int>>&ans,vector<int>&tmp){
         
         if(k==0){
             ans.push_back(tmp);
