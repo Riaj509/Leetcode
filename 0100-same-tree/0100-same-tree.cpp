@@ -11,11 +11,7 @@
  */
 class Solution {
 public:
-    bool isSameTree(TreeNode* p, TreeNode* q) {
-        
-        if(p==NULL && q==NULL) return true;
-        if(p==NULL || q==NULL) return false;
-        
+    bool isSameTree(TreeNode* p, TreeNode* q) {    
          return check(p,q);
         
     }
