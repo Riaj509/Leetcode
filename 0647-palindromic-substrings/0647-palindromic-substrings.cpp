@@ -1,15 +1,18 @@
 class Solution {
 public:
- 
-        int countSubstrings(string s) {
-	int n = size(s), cnt = n; // cnt = n, since each single letter is palindrome in itself.
-	// For odd length palindromes
-	for(int i = 1, l = 0, r = 2; i < n; i++, l = i - 1, r = i + 1)
-		while(l >= 0 && r < n && s[l] == s[r]) l--, r++, cnt++;                    
-	// For even length palindromes
-	for(int i = 1, l = 0, r = 1; i < n; i++, l = i - 1, r = i)
-		while(l >= 0 && r < n && s[l] == s[r]) l--, r++, cnt++;            
-	return cnt;
-}
+    bool areAlmostEqual(string s1, string s2) {
+        
+        
+        if(s1==s2) return true;
+        vector<int>ans;
+        for(int i=0;i<s1.size();++i){
+            if(s1[i]!=s2[i])ans.push_back(i);
+        }
+        
+        if(ans.size()>2) return false;
+        
+        if(ans.size()==2 && s1[ans[0]]==s2[ans[1]] && s1[ans[1]]==s2[ans[0]]) return true;
+        return false;
+    }
     
 };
