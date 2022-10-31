@@ -15,7 +15,7 @@ public:
         if(head==NULL) return NULL;
         if(head->next==NULL) return head;
             
-        ListNode *fs=head->next,*cur_fs=head,*cur_sn=fs;
+        ListNode *fs=head->next,*cur_fs=head,*cur_sn=head->next;
         
         while(cur_sn  && cur_sn->next ){
           cur_fs->next=cur_sn->next;
