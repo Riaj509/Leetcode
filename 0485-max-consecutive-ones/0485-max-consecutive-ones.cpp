@@ -3,18 +3,13 @@ public:
     int findMaxConsecutiveOnes(vector<int>& nums) {
         
         
-        int ln=0,seg=0;
-        
-        for(auto u : nums){
-            if(u==1)seg++;
-            else{
-                ln=max(ln,seg);
-                seg=0;
-            }
+          int max_cnt = 0, cnt = 0;
+        for (auto n : nums) {
+            if (n == 1) max_cnt = max(++cnt, max_cnt);
+            else cnt = 0;
         }
-        ln=max(ln,seg);
+        return max_cnt;
         
-        return ln;
         
     }
 };
