@@ -4,7 +4,7 @@ public:
         
         
         unordered_set<string> nod;
-        map<string,bool>vis;
+        unordered_map<string,bool>vis;
         queue<string>q;
         string cng="ACGT";
         string str=startGene,end=endGene;
