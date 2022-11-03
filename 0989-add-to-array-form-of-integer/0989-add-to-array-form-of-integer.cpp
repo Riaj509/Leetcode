@@ -45,7 +45,8 @@ public:
             }
             else {
                 ans.push_back(x);
-            cary=0;   
+                               cary=0;
+
             }
            n/=10;
         }
