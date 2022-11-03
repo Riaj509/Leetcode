@@ -31,7 +31,7 @@ public:
     bool isCousins(TreeNode* root, int x, int y) {
         
         
-        if(root->left==NULL || root->right==NULL) return false;
+        // if(root->left==NULL || root->right==NULL) return false;
         
         dept(root,x,y,0,0);
         if(xpar!=ypar && xdep==ydep) return true;
