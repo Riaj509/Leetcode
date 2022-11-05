@@ -1,16 +1,23 @@
-class Solution
-{
+class Solution {
 public:
-    int coinChange(vector<int>& coins, int amount) 
-    {
-        vector<int> dp(amount + 1, -1);
-        dp[0] = 0;
+    int coinChange(vector<int>& coins, int amount) {
         
-        for (int i = 1; i <= amount; ++i)
-            for (auto & c : coins)
-                if (i - c >= 0 && dp[i - c] != -1)
-                    dp[i] = dp[i] > 0 ? min(dp[i], dp[i - c] + 1) : dp[i - c] + 1;
+        vector<vector<int>>dp(coins.size()+1,vector<int>(amount+1,-1));
         
-        return dp[amount];
+        int ans =solve(0,amount,dp,coins.size(),coins);
+        if(ans==INT_MAX-1)return -1;
+        return ans;
+    }
+    
+    int solve(int id,int amount,vector<vector<int>>&dp,int n,vector<int>&coins){
+        if(amount==0) return 0;
+        if(id>=n || amount<0) return INT_MAX-1;
+        
+        if(dp[id][amount]!=-1) return dp[id][amount];
+        
+        int a=solve(id+1,amount,dp,n,coins);
+        int b=1+solve(id,amount-coins[id],dp,n,coins);
+        
+        return dp[id][amount]=min(a,b);
     }
 };
