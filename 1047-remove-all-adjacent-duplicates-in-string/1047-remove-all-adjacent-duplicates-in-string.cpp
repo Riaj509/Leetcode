@@ -1,16 +1,13 @@
-class Solution {
+
+        
+        
+        class Solution {
 public:
-    string removeDuplicates(string s) {
-        
-        
-        string ans;
-       for(int i=0;i<s.size();++i){
-           if(ans.back()==s[i])ans.pop_back();
-           else ans.push_back(s[i]);
-           
-       }
-        
-        
-        return ans;
+    string removeDuplicates(string& s) {
+        int i = 0;
+        for(int j = 1; j < s.size(); ++j)
+            if (i < 0 || s[i] != s[j]) s[++i] = s[j];
+            else --i;
+        return s.substr(0, i + 1);
     }
 };
