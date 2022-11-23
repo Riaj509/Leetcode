@@ -12,7 +12,7 @@ public:
     
     int solve(int str,int end,vector<vector<int>>&dp,int cur){
         if(str>end){
-            if(cur==0) return 0;
+           if(cur==0) return 0;
             return 10001;
         }
         
