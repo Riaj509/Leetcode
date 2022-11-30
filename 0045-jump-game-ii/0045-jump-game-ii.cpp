@@ -2,22 +2,18 @@ class Solution {
 public:
     int jump(vector<int>& nums) {
         
-        
-        int n=nums.size();
-        vector<int>dp(n,10001);
-        
-         return solve(0,n,dp,nums);
+        int curr_reach=0,max_reach=0,jumps=0;
+    for(int i=0;i<nums.size()-1;i++)
+    {
+        max_reach=max(max_reach,i+nums[i]);
+        if(i==curr_reach)
+        {
+            curr_reach=max_reach;
+            jumps++;
+        }      
+    }
+    return jumps;
     }
     
-    int solve(int pos,int n,vector<int>&dp,vector<int>&nums){
-        if(pos>=nums.size()-1) return 0;
-        
-        if(dp[pos]!=10001) return dp[pos];
-        
-        for(int i=1;i<=nums[pos];++i) {
-            if(pos+i<n)
-             dp[pos]=min(dp[pos],1+solve(pos+i,n,dp,nums));
-        }
-        return dp[pos];
-    }
+   
 };
