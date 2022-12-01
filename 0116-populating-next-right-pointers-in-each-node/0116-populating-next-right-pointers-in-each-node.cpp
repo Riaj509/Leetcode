@@ -34,8 +34,10 @@ public:
                 q.pop();
                 x->next=cur;
                 cur=x;
-                if(x->right){ q.push(x->right);
-                q.push(x->left);}
+                if(x->right)
+                 q.push(x->right);
+                if(x->left)
+                q.push(x->left);
             }
         }
         
