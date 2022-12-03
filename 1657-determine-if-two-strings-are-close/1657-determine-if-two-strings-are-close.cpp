@@ -1,24 +1,13 @@
-class Solution {
+class Solution 
+{
 public:
-    bool closeStrings(string word1, string word2) {
+    bool closeStrings(string w1, string w2) 
+    {
+        vector<int> f1(26), f2(26);
+        for (char c : w1) ++f1[c-'a'];
+        for (char c : w2) ++f2[c-'a'];
         
-        
-        vector<int> f(26,0),f1(26,0);
-        set<char>s,s1;
-        
-        for(auto u : word1) {
-            f[u-'a']++;
-          s.insert(u);
-        }
-         for(auto u : word2) {
-            f1[u-'a']++;
-            s1.insert(u);
-        }
-        
-        sort(f.begin(),f.end());
-        sort(f1.begin(),f1.end());
-        
-        return (f==f1 && s==s1);
-        
+        return multiset(f1.begin(),f1.end()) == multiset(f2.begin(),f2.end()) &&
+               unordered_set(w1.begin(),w1.end()) == unordered_set(w2.begin(),w2.end());
     }
 };
