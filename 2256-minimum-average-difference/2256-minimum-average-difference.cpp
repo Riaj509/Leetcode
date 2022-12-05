@@ -10,7 +10,7 @@ public:
         long long int mn=1e10+123,idx=-1;
         
         for(long long i=0;i<n;i++ ){
-            long long int avg=0,lft=0,ri=0;
+           int avg=0,lft=0,ri=0;
             lft=ans[i]/(i+1);
             
             if(i!=n-1)ri=(ans[n-1]-ans[i])/(n-i-1);
